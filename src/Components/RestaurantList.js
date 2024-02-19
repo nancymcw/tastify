@@ -8,9 +8,6 @@ import {
   HandThumbsUp,
   HandThumbsUpFill,
 } from "react-bootstrap-icons";
-import thumbsup from "../assets/thumbsup.svg";
-import thumbsdown from "../assets/thumbsdown.svg";
-
 const RestaurantList = ({ restaurants, setRestaurants }) => {
   console.log("restaurant list", restaurants);
 
@@ -36,16 +33,18 @@ const RestaurantList = ({ restaurants, setRestaurants }) => {
               key={restaurant.id}
               style={{ width: "18rem", padding: "5px", margin: "5px" }}
             >
-              <Link to={`${restaurant.id}`}>
-                <Card.Img
-                  id="card-img"
-                  variant="top"
-                  src={restaurant.img}
-                  alt={restaurant.restaurantName}
-                />
-              </Link>
+              <div className="edit-img-box">
+                <Link to={`${restaurant.id}`}>
+                  <Card.Img
+                    id="card-img"
+                    variant="top"
+                    src={restaurant.img}
+                    alt={restaurant.restaurantName}
+                  />
+                  <p className="card-edit-text">Click to Edit</p>
+                </Link>
+              </div>
               <Card.Body>
-                <Link to={`${restaurant.id}`}>{restaurant.restaurantName}</Link>
                 <Card.Title id="greenCardTitle">
                   {restaurant.restaurantName}
                 </Card.Title>
@@ -54,14 +53,6 @@ const RestaurantList = ({ restaurants, setRestaurants }) => {
                   <br />
                   <strong>Date visited:</strong> {restaurant.dateVisited}
                 </Card.Text>
-                <br />
-                <Button variant="light">
-                  <HandThumbsUp size={35} />
-                </Button>
-                <Button variant="light">
-                  <HandThumbsDown size={35} id="thumb-button" />
-                </Button>
-
                 <br />
                 {/* <EditRestaurant
                   id={restaurant.id}

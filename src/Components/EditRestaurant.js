@@ -6,8 +6,16 @@ import { restaurantAPI } from "../REST/RestaurantsAPI";
 function EditRestaurant(props) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    if (props.onModalClose) {
+      props.onModalClose();
+    }
+  };
+
   const handleShow = () => setShow(true);
+
+  const [showUpdatedRestaurant, setShowUpdatedRestaurant] = useState();
 
   const [updatedRestaurantName, setUpdatedRestaurantName] = useState(
     props.restaurantName
@@ -21,6 +29,7 @@ function EditRestaurant(props) {
   const [updatedRestaurantDate, setUpdatedRestaurantDate] = useState(
     props.dateVisited
   );
+
   const { get, put } = restaurantAPI;
 
   const handleUpdateSubmit = (e) => {
@@ -36,21 +45,23 @@ function EditRestaurant(props) {
     //took this from restaurantList for when submit button is pressed on Edit.
     // Need something like this for my edit button. had to log out props.onUpdateSuccess below.
     //also still being wonky with re-rendering since the meeting with Matt, have to manually refresh after edits and whatnot whichis a BUMMER
-    // const updateRestaurantList = () => {
-    //   restaurantAPI
-    //     .get()
-    //     .then((data) => {
-    //       setRestaurants(data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error fetching updated restaurant list:", error);
-    //     });
-    // };
+    const updateSubmitted = () => {
+      restaurantAPI
+        .get()
+        .then((data) => {
+          setShowUpdatedRestaurant(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching updated restaurant list:", error);
+        });
+    };
 
     put(updatedRestaurant)
       .then((data) => {
         console.log(data); // log the response data
         // props.onUpdateSuccess();
+        // updateSubmitted();
+        props.handleModalClose();
         handleClose(); // close the modal after successful update
       })
       .catch((error) => {

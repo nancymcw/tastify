@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import EditRestaurant from "../Components/EditRestaurant";
-import { Button } from "react-bootstrap";
 import { restaurantAPI } from "../REST/RestaurantsAPI";
+import { HandThumbsUpFill } from "react-bootstrap-icons";
 
 export function Restaurant(props) {
   console.log("props", props);
@@ -22,7 +22,21 @@ export function Restaurant(props) {
 
   useEffect(() => {
     showRestaurant();
-  }, []);
+  });
+
+  const { deleteRestaurant } = restaurantAPI;
+
+  // Function for handling deletion with delete button
+  const handleDelete = (e, restaurant) => {
+    e.preventDefault();
+    deleteRestaurant(restaurant);
+    // let updatedRest = restaurants.filter((item) => item.id !== restaurant.id);
+    // setRestaurants(updatedRest);
+  };
+
+  const handleModalClose = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="container fluid" id="add-new-div">
@@ -36,76 +50,19 @@ export function Restaurant(props) {
       <br />
       You visited on {specificRestaurant.dateVisited}
       <br />
-      Your rating was jfdkfjskfj;
+      You Liked It <HandThumbsUpFill size={20} />
+      <br />
       <EditRestaurant
         id={specificRestaurant.id}
         restaurantName={specificRestaurant.restaurantName}
         cuisine={specificRestaurant.cuisine}
         img={specificRestaurant.img}
+        handleModalClose={() => {
+          handleModalClose();
+        }}
+        // handleDelete={handleDelete}
         // onUpdateSuccess={updateRestaurantList}
       />
     </div>
   );
 }
-//   const restaurant = props.restaurant;
-//   console.log(props, restaurant);
-//   const [restaurants, setRestaurants] = useState([]);
-
-//   const { deleteRestaurant } = restaurantAPI;
-
-//   useEffect(() => {
-//     const fetchRestaurants = async () => {
-//       try {
-//         const data = await restaurantAPI.get();
-//         setRestaurants(data);
-//       } catch (error) {
-//         console.error("Error fetching restaurants:", error);
-//       }
-//     };
-
-//     fetchRestaurants();
-//   }, []);
-
-//   const updateRestaurantList = () => {
-//     restaurantAPI
-//       .get()
-//       .then((data) => {
-//         setRestaurants(data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching updated restaurant list:", error);
-//       });
-//   };
-
-//   const handleDelete = (e, restaurant) => {
-//     e.preventDefault();
-//     deleteRestaurant(restaurant);
-//     let updatedRest = restaurants.filter((item) => item.id !== restaurant.id);
-//     setRestaurants(updatedRest);
-//   };
-
-//   return (
-//     <>
-//       <h2>Restaurant</h2>
-//       {id}
-
-//       <EditRestaurant
-//         id={restaurant.id}
-//         restaurantName={restaurant.restaurantName}
-//         cuisine={restaurant.cuisine}
-//         img={restaurant.img}
-//         onUpdateSuccess={updateRestaurantList}
-//       />
-//       <Button
-//         variant="dark"
-//         onClick={(e) => {
-//           handleDelete(e, restaurant);
-//         }}
-//       >
-//         Delete
-//       </Button>
-//     </>
-//   );
-// }
-//edit button, delete button(are you sure? alert on delete click)
-//review/note

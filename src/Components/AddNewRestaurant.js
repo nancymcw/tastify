@@ -3,12 +3,13 @@ import { restaurantAPI } from "../REST/RestaurantsAPI";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import { HandThumbsUp, HandThumbsDown } from "react-bootstrap-icons";
 
 const AddNewRestaurant = (props) => {
   const [newRestaurantName, setNewRestaurantName] = useState("");
   const [newRestaurantImage, setNewRestaurantImage] = useState("");
   const [newRestaurantCuisine, setNewRestaurantCuisine] = useState("");
-  const [newRestaurantDate, setNewRestaurantDate] = useState(null);
+  const [newRestaurantDate, setNewRestaurantDate] = useState(undefined);
   const [restaurants, setRestaurants] = useState([]);
 
   const { post } = restaurantAPI;
@@ -32,13 +33,11 @@ const AddNewRestaurant = (props) => {
   const handlePostSubmit = (e) => {
     e.preventDefault();
     // returning alert if there is an empty input in the form
-    if (
-      !newRestaurantName ||
-      !newRestaurantCuisine
-      // || !newRestaurantImage
-    ) {
+    if (!newRestaurantName || !newRestaurantCuisine || !newRestaurantDate) {
       // return alert("Please fill in all fields for new restaurant.");
-      return alert("Please at least add name & cuisine for new restaurant.");
+      return alert(
+        "Please at least add name, cuisine, & date for new restaurant."
+      );
     }
 
     // POST
@@ -56,6 +55,7 @@ const AddNewRestaurant = (props) => {
         setNewRestaurantCuisine("");
         setNewRestaurantImage("");
         setNewRestaurantDate("");
+        alert("Restaurant successfully added!");
       })
       .catch((error) => {
         console.error("Error adding new restaurant:", error);
@@ -99,6 +99,16 @@ const AddNewRestaurant = (props) => {
             value={newRestaurantDate}
             onChange={(e) => setNewRestaurantDate(e.target.value)}
           />
+          <br />
+          How was it?
+          <br />
+          <Button variant="light">
+            <HandThumbsUp size={35} />
+          </Button>
+          <Button variant="light">
+            <HandThumbsDown size={35} id="thumb-button" />
+          </Button>
+          <br />
         </Form.Group>
 
         <Button variant="dark" onClick={(e) => handlePostSubmit(e)}>

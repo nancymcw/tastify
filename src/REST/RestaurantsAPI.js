@@ -16,7 +16,7 @@ class RestaurantsAPI {
           cuisine: cuisine,
           img:
             img ||
-            "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
+            "https://www.iconarchive.com/download/i132001/bootstrap/bootstrap/Bootstrap-buildings.512.png",
           dateVisited: dateVisited || null,
         }),
       });
