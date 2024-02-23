@@ -19,7 +19,6 @@ function EditRestaurant(props) {
   const handleShow = () => setShow(true);
 
   //State for the updated restaurant information after edited
-  const [showUpdatedRestaurant, setShowUpdatedRestaurant] = useState();
 
   const [updatedRestaurantName, setUpdatedRestaurantName] = useState(
     props.restaurantName
