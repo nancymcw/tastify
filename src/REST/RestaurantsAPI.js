@@ -1,10 +1,10 @@
 const RESTAURANTS_ENDPOINT =
   "https://6597777c668d248edf22df89.mockapi.io/Restaurants";
 
-//all of my API handling is in this file which I import in any file that uses post, get, update or delete
+//All of my API handling is in this file which I import into any file that uses post, get, update or delete
 
 class RestaurantsAPI {
-  post = async (restaurantName, cuisine, img, dateVisited) => {
+  post = async (restaurantName, cuisine, img, dateVisited, like) => {
     try {
       const response = await fetch(`${RESTAURANTS_ENDPOINT}`, {
         method: "POST",
@@ -17,7 +17,8 @@ class RestaurantsAPI {
           img:
             img ||
             "https://www.iconarchive.com/download/i132001/bootstrap/bootstrap/Bootstrap-buildings.512.png",
-          dateVisited: dateVisited || null,
+          dateVisited: dateVisited,
+          like: like,
         }),
       });
       return await response.json();
@@ -54,10 +55,10 @@ class RestaurantsAPI {
     this.get();
   };
 
-  deleteRestaurant = async (restaurant) => {
+  deleteRestaurant = async (restaurantId) => {
     try {
-      // console.log(restaurant);
-      const response = await fetch(`${RESTAURANTS_ENDPOINT}/${restaurant.id}`, {
+      console.log(restaurantId);
+      const response = await fetch(`${RESTAURANTS_ENDPOINT}/${restaurantId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

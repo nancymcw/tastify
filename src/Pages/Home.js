@@ -1,6 +1,7 @@
+import { Row, Col } from "react-bootstrap";
 import { HomePageCarousel } from "../Components/HomePageCarousel";
 import { LoginForm } from "../Components/LoginForm";
-import { Row, Col, Container } from "react-bootstrap";
+import { Footer } from "../Components/Footer";
 
 export function Home() {
   return (
@@ -19,6 +20,8 @@ export function Home() {
           <LoginForm />
         </Col>
       </Row>
+
+      <Footer />
     </div>
   );
 }

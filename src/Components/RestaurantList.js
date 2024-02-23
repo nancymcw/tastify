@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { restaurantAPI } from "../REST/RestaurantsAPI";
-import { Button, Card, Row, Col } from "react-bootstrap";
+import React from "react";
+import { Card, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  HandThumbsDown,
-  HandThumbsDownFill,
-  HandThumbsUp,
-  HandThumbsUpFill,
-} from "react-bootstrap-icons";
+import { LikedIt } from "./LikedIt";
+import { DislikedIt } from "./DislikedIt";
+
 const RestaurantList = ({ restaurants, setRestaurants }) => {
-  console.log("restaurant list", restaurants);
-
-  // const [restaurants, setRestaurants] = useState([]);
-
-  const { deleteRestaurant } = restaurantAPI;
-
-  // Function for handling deletion with delete button
-  const handleDelete = (e, restaurant) => {
-    e.preventDefault();
-    deleteRestaurant(restaurant);
-    let updatedRest = restaurants.filter((item) => item.id !== restaurant.id);
-    setRestaurants(updatedRest);
-  };
-
+  //Mapping out all of the restaurants and styling them to show their information in each card. Did some css styling so that when you hover over the div edit-img-box the text 'Click to edit' appears.
+  //Couldnt get boolean to work for my like & dislike because of json stringifying my inputs so instead I have a ternary for displaying either the thumbs up or thumbs down component if the string matches(Line 39).
   return (
     <div>
       <h2>My Restaurants</h2>
@@ -34,6 +18,7 @@ const RestaurantList = ({ restaurants, setRestaurants }) => {
               style={{ width: "18rem", padding: "5px", margin: "5px" }}
             >
               <div className="edit-img-box">
+                {/* Link to each restaurant id attached to useParams with React Router. */}
                 <Link to={`${restaurant.id}`}>
                   <Card.Img
                     id="card-img"
@@ -49,27 +34,17 @@ const RestaurantList = ({ restaurants, setRestaurants }) => {
                   {restaurant.restaurantName}
                 </Card.Title>
                 <Card.Text>
+                  <strong>Your rating:</strong>
+                  {restaurant.like === "true" ? (
+                    <LikedIt like={restaurant.like} />
+                  ) : (
+                    <DislikedIt />
+                  )}
+                  <br />
                   <strong>Cuisine:</strong> {restaurant.cuisine}
                   <br />
                   <strong>Date visited:</strong> {restaurant.dateVisited}
                 </Card.Text>
-                <br />
-                {/* <EditRestaurant
-                  id={restaurant.id}
-                  restaurantName={restaurant.restaurantName}
-                  cuisine={restaurant.cuisine}
-                  img={restaurant.img}
-                  onUpdateSuccess={updateRestaurantList}
-                /> */}
-                <Button
-                  variant="dark"
-                  onClick={(e) => {
-                    handleDelete(e, restaurant);
-                  }}
-                >
-                  Delete
-                </Button>
-                <br />
               </Card.Body>
             </Card>
           ))}

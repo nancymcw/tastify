@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-
+//Got the loginform from react-bootstrap docs and altered it
 export function LoginForm() {
   return (
     <Form>

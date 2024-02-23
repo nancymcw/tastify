@@ -100,6 +100,8 @@ Use the `BLANK_README.md` to get started.
 - [![React][React.js]][React-url]
 - [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 - [![JQuery][JQuery.com]][JQuery-url]
+- [![HTML5][HTML5.com]][HTML5-url]
+- [![CSS][CSS.com]][CSS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

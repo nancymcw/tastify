@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Buildings } from "react-bootstrap-icons";
 import { SearchBar } from "./SearchBar";
 
+//Navbar with a little made up logo using a react bootstrap icon. Also where I put my searchbar component. Nav links throughout using React Bootstrap styling
 export function Navigation() {
   return (
     <Navbar expand="sm" className="nav-bar-styling">

@@ -1,14 +1,14 @@
 import { Carousel } from "react-bootstrap";
 
+//Took code for a carousel from react bootstrap docs and filled it in with my own content
+
 export function HomePageCarousel() {
   return (
     <Carousel fade>
       <Carousel.Item interval={4000}>
-        {/* <ExampleCarouselImage text="First slide" />
-         */}
         <img
           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Delicious food on a table with cutlery"
+          alt="Delicious food on a table"
           id="carousel-img"
         />
         <Carousel.Caption>
@@ -28,10 +28,9 @@ export function HomePageCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item interval={4000}>
-        {/* <ExampleCarouselImage text="Third slide" /> */}
         <img
           src="https://images.unsplash.com/photo-1592646012268-607189c880a6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Beautiful Italian food."
+          alt="Squid ink pasta in a bowl with seafood"
           id="carousel-img"
         />
         <Carousel.Caption>

@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap/";
-
+// A search bar I found the style for on react bootstrap, thought it would look nice in the navbar.
 export function SearchBar() {
   return (
     <Form className="d-flex">

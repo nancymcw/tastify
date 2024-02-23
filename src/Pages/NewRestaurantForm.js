@@ -1,5 +1,5 @@
 import AddNewRestaurant from "../Components/AddNewRestaurant";
 
-export function NewRestaurantForm(props) {
+export function NewRestaurantForm() {
   return <AddNewRestaurant />;
 }

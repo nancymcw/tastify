@@ -1,42 +1,30 @@
 import React, { useState } from "react";
 import { restaurantAPI } from "../REST/RestaurantsAPI";
 import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { HandThumbsUp, HandThumbsDown } from "react-bootstrap-icons";
+import { LikedIt } from "./LikedIt";
+import { DislikedIt } from "./DislikedIt";
 
-const AddNewRestaurant = (props) => {
+const AddNewRestaurant = () => {
   const [newRestaurantName, setNewRestaurantName] = useState("");
   const [newRestaurantImage, setNewRestaurantImage] = useState("");
   const [newRestaurantCuisine, setNewRestaurantCuisine] = useState("");
   const [newRestaurantDate, setNewRestaurantDate] = useState(undefined);
-  const [restaurants, setRestaurants] = useState([]);
-
+  const [newRestaurantLike, setNewRestaurantLike] = useState(false);
   const { post } = restaurantAPI;
 
-  const fetchRestaurants = () => {
-    restaurantAPI
-      .get()
-      .then((data) => {
-        setRestaurants(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching restaurant list:", error);
-      });
-  };
-
-  const onPostSuccess = () => {
-    fetchRestaurants();
-  };
-
-  //Post submit button for the new restaurant form.
+  //Post submit button for the new restaurant form submit button.
   const handlePostSubmit = (e) => {
     e.preventDefault();
-    // returning alert if there is an empty input in the form
-    if (!newRestaurantName || !newRestaurantCuisine || !newRestaurantDate) {
-      // return alert("Please fill in all fields for new restaurant.");
+    // returning alert if there is an empty input in the form(besides image, I have a default image for if user does not want to add image)
+    if (
+      !newRestaurantName ||
+      !newRestaurantCuisine ||
+      !newRestaurantDate ||
+      !newRestaurantLike
+    ) {
       return alert(
-        "Please at least add name, cuisine, & date for new restaurant."
+        "Please at least add name, cuisine, date visited, & rating for new restaurant."
       );
     }
 
@@ -45,23 +33,24 @@ const AddNewRestaurant = (props) => {
       newRestaurantName,
       newRestaurantCuisine,
       newRestaurantImage,
-      newRestaurantDate
+      newRestaurantDate,
+      newRestaurantLike
     )
       .then((data) => {
         console.log(data); // logging data for myself
-        onPostSuccess(); // updating the list of restaurants
         // then clearing the form
         setNewRestaurantName("");
         setNewRestaurantCuisine("");
         setNewRestaurantImage("");
         setNewRestaurantDate("");
+        //Alert to show that data went through successfully
         alert("Restaurant successfully added!");
       })
       .catch((error) => {
         console.error("Error adding new restaurant:", error);
       });
   };
-
+  //Form for filling out each input, connected to the setState that's for that data respectively and using event targets to get the input data from the form.
   return (
     <div className="container fluid" id="add-new-div">
       <Form>
@@ -92,7 +81,7 @@ const AddNewRestaurant = (props) => {
             onChange={(e) => setNewRestaurantImage(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formNewImage">
+        <Form.Group className="mb-3" controlId="formNewDate">
           <Form.Label>Date Visited</Form.Label>
           <Form.Control
             type="date"
@@ -100,16 +89,34 @@ const AddNewRestaurant = (props) => {
             onChange={(e) => setNewRestaurantDate(e.target.value)}
           />
           <br />
-          How was it?
-          <br />
-          <Button variant="light">
-            <HandThumbsUp size={35} />
-          </Button>
-          <Button variant="light">
-            <HandThumbsDown size={35} id="thumb-button" />
-          </Button>
-          <br />
         </Form.Group>
+        <Form>
+          {/* radio form for boolean data for the like or dislike option, learned to make it so that you can only select on at a time they have to have the same name value. */}
+          How was it?
+          <div key={`inline-radio`} className="mb-3">
+            <Form.Check
+              inline
+              label={<LikedIt />}
+              name="like-radio"
+              value={true}
+              type="radio"
+              id={`inline-radio-1`}
+              onChange={(e) => setNewRestaurantLike(e.target.value)}
+            />
+            Liked it!
+            <br />
+            <Form.Check
+              inline
+              label={<DislikedIt />}
+              name="like-radio"
+              value={false}
+              type="radio"
+              id={`inline-radio-2`}
+              onChange={(e) => setNewRestaurantLike(e.target.value)}
+            />
+            Did not enjoy...
+          </div>
+        </Form>
 
         <Button variant="dark" onClick={(e) => handlePostSubmit(e)}>
           Submit
